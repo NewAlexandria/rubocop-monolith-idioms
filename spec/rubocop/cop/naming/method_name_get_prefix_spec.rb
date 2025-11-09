@@ -5,6 +5,7 @@ require 'rubocop/cop/naming/method_name_get_prefix'
 
 RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
   subject(:cop) { described_class.new(config) }
+  let(:id) { 1 }
 
   let(:config) { RuboCop::Config.new }
 
@@ -12,7 +13,7 @@ RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         def get_user(id)
-            ^^^^^^^^ Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
+        ^^^^^^^^^^^^^^^^ Naming/MethodNameGetPrefix: Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
         end
       RUBY
     end
@@ -140,7 +141,7 @@ RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         def get_db_line_item(order_id, line_item_id)
-            ^^^^^^^^^^^^^^^ Avoid using `get_` prefix for methods with arguments. Consider using `db_line_item_for` or `find_db_line_item` instead.
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Naming/MethodNameGetPrefix: Avoid using `get_` prefix for methods with arguments. Consider using `db_line_item_for` or `find_db_line_item` instead.
         end
       RUBY
     end
@@ -164,7 +165,7 @@ RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         def get_user(id:, name:)
-            ^^^^^^^^ Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Naming/MethodNameGetPrefix: Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
         end
       RUBY
     end
@@ -174,7 +175,7 @@ RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
     it 'registers an offense' do
       expect_offense(<<~RUBY)
         def get_user(id, &block)
-            ^^^^^^^^ Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
+        ^^^^^^^^^^^^^^^^^^^^^^^^ Naming/MethodNameGetPrefix: Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
         end
       RUBY
     end
@@ -185,7 +186,7 @@ RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
       expect_offense(<<~RUBY)
         class UserService
           def get_user(id)
-              ^^^^^^^^ Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
+          ^^^^^^^^^^^^^^^^ Naming/MethodNameGetPrefix: Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
             def helper_method
             end
           end
@@ -196,7 +197,8 @@ RSpec.describe RuboCop::Cop::Naming::MethodNameGetPrefix do
     it 'handles methods with complex bodies' do
       expect_offense(<<~RUBY)
         def get_user(id)
-            ^^^^^^^^ Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
+        ^^^^^^^^^^^^^^^^ Naming/MethodNameGetPrefix: Avoid using `get_` prefix for methods with arguments. Consider using `user_for` or `find_user` instead.
+
           return nil if id.nil?
           User.find_by(id: id) || User.create(id: id)
         end
