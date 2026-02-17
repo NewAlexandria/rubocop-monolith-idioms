@@ -4,6 +4,8 @@ Your monolith has opinions — put them in cops.
 
 A RuboCop extension for teams running large Rails codebases who want idiomatic naming, boundary enforcement, and room to encode their own patterns as lint rules. Ships with a `get_`/`set_` method-naming cop out of the box and a scaffold for adding more. **Fork this repo, add your domain cops, and let the linter teach the codebase.**
 
+**Departments:** [Naming](docs/RAILS_MONOLITH_SCOPE.md) (method naming; has cops today) · **RailsArchitecture** (boundaries, engines) · **RailsSafety** (dangerous patterns) · **RailsPerformance** (query/loading). See [Rails monolith scope](docs/RAILS_MONOLITH_SCOPE.md).
+
 ## Fork and add your patterns
 
 Two paths:
@@ -50,7 +52,9 @@ bundle exec install-context
 
 This copies an agent-context doc into `.cursor/rubocop-monolith-idioms.md` (override with `--path`). The file tells AI editor agents what this gem does and how to add new cops so they can contribute rules without manual guidance.
 
-See [bin/install-context](bin/install-context) for flags (`--force`, `--path`).
+By default, Naming/MethodNameGetPrefix examples (good, bad, and exception) are also copied into `docs/rubocop-monolith-idioms-examples/`. Use `--without-examples` to skip. Create that directory and add one markdown file per cop with Context and embedded code blocks so agents use this repo's examples when applying the rules.
+
+See [bin/install-context](bin/install-context) for flags (`--force`, `--path`, `--without-examples`).
 
 ## What's in the box
 

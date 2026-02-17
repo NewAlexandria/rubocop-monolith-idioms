@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
     files = if system('git rev-parse --git-dir > /dev/null 2>&1')
               `git ls-files -z`.split("\x0")
             else
-              Dir['lib/**/*', 'config/**/*', 'guides/**/*', 'templates/**/*', '*.md', 'LICENSE*'].reject { |f| File.directory?(f) }
+              Dir['lib/**/*', 'config/**/*', 'guides/**/*', 'templates/**/*', 'examples/**/*', '*.md', 'LICENSE*'].reject { |f| File.directory?(f) }
             end
     files.reject do |f|
       (File.expand_path(f) == __FILE__) ||

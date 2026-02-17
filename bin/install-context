@@ -4,10 +4,13 @@
 require 'fileutils'
 require 'optparse'
 
-TEMPLATE = File.expand_path('../../templates/agent-context.md', __FILE__)
+GEM_ROOT = File.expand_path('../..', __FILE__)
+TEMPLATE = File.join(GEM_ROOT, 'templates', 'agent-context.md')
 DEFAULT_TARGET = '.cursor/rubocop-monolith-idioms.md'
+EXAMPLES_DIR = 'docs/rubocop-monolith-idioms-examples'
+EXAMPLES_SOURCE = File.join(GEM_ROOT, 'examples')
 
-options = {}
+options = { with_examples: true }
 OptionParser.new do |opts|
   opts.banner = "Usage: install-context [options]"
 
@@ -19,6 +22,10 @@ OptionParser.new do |opts|
     options[:force] = true
   end
 
+  opts.on('--without-examples', 'Skip copying Naming/MethodNameGetPrefix examples') do
+    options[:with_examples] = false
+  end
+
   opts.on('-h', '--help', 'Show this help') do
     puts opts
     exit
@@ -26,6 +33,7 @@ OptionParser.new do |opts|
 end.parse!
 
 target = options[:path] || DEFAULT_TARGET
+root = Dir.pwd
 
 if File.exist?(target) && !options[:force]
   warn "#{target} already exists. Use --force to overwrite."
@@ -35,3 +43,13 @@ end
 FileUtils.mkdir_p(File.dirname(target))
 FileUtils.cp(TEMPLATE, target)
 puts "Installed agent context to #{target}"
+
+if options[:with_examples]
+  examples_dest = File.join(root, EXAMPLES_DIR)
+  md_source = File.join(EXAMPLES_SOURCE, 'Naming-MethodNameGetPrefix.md')
+
+  FileUtils.mkdir_p(examples_dest)
+  FileUtils.cp(md_source, examples_dest) if File.exist?(md_source)
+
+  puts "Installed examples to #{EXAMPLES_DIR}/"
+end
