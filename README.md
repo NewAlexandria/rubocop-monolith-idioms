@@ -1,13 +1,13 @@
-# rubocop-method-name-get-prefix
+# rubocop-monolith-idioms
 
-A RuboCop extension that flags methods with `get_` or `set_` prefixes that take arguments, suggesting more idiomatic Ruby naming conventions.
+A RuboCop extension for idiomatic Ruby naming and Rails monolith patterns, including cops that flag `get_`/`set_` method prefixes and room for more large-codebase rules.
 
 ## Installation
 
 Add this gem to your Gemfile:
 
 ```ruby
-gem 'rubocop-method-name-get-prefix', require: false
+gem 'rubocop-monolith-idioms', require: false
 ```
 
 And then execute:
@@ -19,7 +19,7 @@ bundle install
 Or install it yourself as:
 
 ```bash
-gem install rubocop-method-name-get-prefix
+gem install rubocop-monolith-idioms
 ```
 
 ## Usage
@@ -30,7 +30,7 @@ Add this to your `.rubocop.yml`:
 
 ```yaml
 plugins:
-  - rubocop-method-name-get-prefix
+  - rubocop-monolith-idioms
 ```
 
 ### Legacy require loading
@@ -39,15 +39,15 @@ For RuboCop versions before 1.72, use `require` instead:
 
 ```yaml
 require:
-  - rubocop-method-name-get-prefix
+  - rubocop-monolith-idioms
 ```
 
 Or load via the command line:
 
 ```bash
-rubocop --require rubocop-method-name-get-prefix
+rubocop --require rubocop-monolith-idioms
 # or
-rubocop --plugin rubocop-method-name-get-prefix
+rubocop --plugin rubocop-monolith-idioms
 ```
 
 Now you can run `rubocop` and it will automatically load the cops.
@@ -225,7 +225,7 @@ To add a new cop, use `bundle exec rake 'new_cop[Department/CopName]'` and follo
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/NewAlexandria/rubocop-method-name-get-prefix.
+Bug reports and pull requests are welcome on GitHub at https://github.com/NewAlexandria/rubocop-monolith-idioms.
 
 ## License
 

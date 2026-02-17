@@ -6,7 +6,7 @@
 #     - .rubocop-baseline.yml
 #   # or with gem path:
 #   inherit_from:
-#     - rubocop-method-name-get-prefix:config/profiles/baseline.yml
+#     - rubocop-monolith-idioms:config/profiles/baseline.yml
 
 inherit_from:
   - ../default.yml

@@ -16,7 +16,7 @@ The default configuration is conservative: only cops with broad applicability ar
 ```yaml
 # .rubocop.yml
 plugins:
-  - rubocop-method-name-get-prefix
+  - rubocop-monolith-idioms
 ```
 
 ### Strict
@@ -26,10 +26,10 @@ For teams that have addressed baseline violations and want additional enforcemen
 ```yaml
 # .rubocop.yml
 plugins:
-  - rubocop-method-name-get-prefix
+  - rubocop-monolith-idioms
 
 inherit_from:
-  - rubocop-method-name-get-prefix:config/profiles/strict.yml
+  - rubocop-monolith-idioms:config/profiles/strict.yml
 ```
 
 ## Migration strategy: audit first, then enforce
@@ -44,7 +44,7 @@ inherit_from:
 ```yaml
 # .rubocop.yml
 plugins:
-  - rubocop-method-name-get-prefix
+  - rubocop-monolith-idioms
 
 # Phase 1: audit only (no CI failure)
 Naming/MethodNameGetPrefix:

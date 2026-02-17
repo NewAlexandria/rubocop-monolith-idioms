@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'lib/rubocop-method-name-get-prefix/version'
+require_relative 'lib/rubocop-monolith-idioms/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'rubocop-method-name-get-prefix'
-  spec.version       = RuboCop::MethodNameGetPrefix::VERSION
+  spec.name          = 'rubocop-monolith-idioms'
+  spec.version       = RuboCop::MonolithIdioms::VERSION
   spec.authors       = ['NewAlexandria']
   spec.email         = ['nospam@newalexandria.org']
 
-  spec.summary       = 'RuboCop cop to prevent non-idiomatic get_ prefix in method names'
-  spec.description   = 'A RuboCop extension that flags methods with get_ prefix that take arguments, ' \
-                       'suggesting more idiomatic Ruby naming conventions like *_for or find_* patterns.'
-  spec.homepage      = 'https://github.com/NewAlexandria/rubocop-method-name-get-prefix'
+  spec.summary       = 'RuboCop cops for idiomatic Ruby and Rails monolith patterns'
+  spec.description   = 'A RuboCop extension for idiomatic naming and Rails large-codebase patterns, ' \
+                       'including get_/set_ method naming and future monolith-focused rules.'
+  spec.homepage      = 'https://github.com/NewAlexandria/rubocop-monolith-idioms'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
 
@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
             end
     files.reject do |f|
       (File.expand_path(f) == __FILE__) ||
-        f.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile export/])
+        f.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile rubocop-core-integration/])
     end
   end
   spec.bindir        = 'exe'
@@ -39,5 +39,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'lint_roller', '~> 1.1'
   spec.add_dependency 'rubocop', '>= 1.0'
 
-  spec.metadata['default_lint_roller_plugin'] = 'RuboCop::MethodNameGetPrefix::Plugin'
+  spec.metadata['default_lint_roller_plugin'] = 'RuboCop::MonolithIdioms::Plugin'
 end

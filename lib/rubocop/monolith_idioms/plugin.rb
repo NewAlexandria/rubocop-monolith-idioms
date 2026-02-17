@@ -4,15 +4,15 @@ require 'pathname'
 require 'lint_roller'
 
 module RuboCop
-  module MethodNameGetPrefix
+  module MonolithIdioms
     # A plugin that integrates this extension with RuboCop's plugin system (1.72+).
     class Plugin < LintRoller::Plugin
       def about
         LintRoller::About.new(
-          name: 'rubocop-method-name-get-prefix',
+          name: 'rubocop-monolith-idioms',
           version: VERSION,
-          homepage: 'https://github.com/NewAlexandria/rubocop-method-name-get-prefix',
-          description: 'RuboCop cops for idiomatic Ruby naming and Rails large-codebase patterns.'
+          homepage: 'https://github.com/NewAlexandria/rubocop-monolith-idioms',
+          description: 'RuboCop cops for idiomatic Ruby naming and Rails monolith patterns.'
         )
       end
 

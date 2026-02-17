@@ -3,7 +3,7 @@
 #
 # Usage in .rubocop.yml:
 #   inherit_from:
-#     - rubocop-method-name-get-prefix:config/profiles/strict.yml
+#     - rubocop-monolith-idioms:config/profiles/strict.yml
 
 inherit_from:
   - ../default.yml

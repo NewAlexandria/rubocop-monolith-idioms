@@ -5,7 +5,7 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
   Exclude:
-    - 'export/**/*'
+    - 'rubocop-core-integration/**/*'
 
 Layout/LineLength:
   Max: 120
@@ -25,7 +25,7 @@ RSpec/ContextWording:
 
 Naming/FileName:
   Exclude:
-    - 'lib/rubocop-method-name-get-prefix.rb'
+    - 'lib/rubocop-monolith-idioms.rb'
 
 # Capybara cops can error on non-Capybara spec files
 Capybara/RSpec/PredicateMatcher:
