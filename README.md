@@ -1,6 +1,6 @@
 # rubocop-method-name-get-prefix
 
-A RuboCop extension that flags methods with `get_` prefix that take arguments, suggesting more idiomatic Ruby naming conventions like `*_for` or `find_*` patterns.
+A RuboCop extension that flags methods with `get_` or `set_` prefixes that take arguments, suggesting more idiomatic Ruby naming conventions.
 
 ## Installation
 
@@ -24,30 +24,54 @@ gem install rubocop-method-name-get-prefix
 
 ## Usage
 
+### Plugin loading (RuboCop 1.72+)
+
 Add this to your `.rubocop.yml`:
+
+```yaml
+plugins:
+  - rubocop-method-name-get-prefix
+```
+
+### Legacy require loading
+
+For RuboCop versions before 1.72, use `require` instead:
 
 ```yaml
 require:
   - rubocop-method-name-get-prefix
 ```
 
-Now you can run `rubocop` and it will automatically load the cop.
+Or load via the command line:
+
+```bash
+rubocop --require rubocop-method-name-get-prefix
+# or
+rubocop --plugin rubocop-method-name-get-prefix
+```
+
+Now you can run `rubocop` and it will automatically load the cops.
 
 ## What it does
 
 This cop flags methods that:
 
-- Start with `get_` prefix
-- Take one or more arguments
+- Start with `get_` prefix and take one or more arguments
+- Start with `set_` prefix and take a _single_ required argument (without defaults)
 
-It suggests renaming them to use more idiomatic Ruby patterns:
+For `get_` prefixed methods, it suggests renaming them to use more idiomatic Ruby patterns:
 
 - `*_for` pattern (e.g., `get_user(id)` → `user_for(id)`)
 - `find_*` pattern (e.g., `get_user(id)` → `find_user(id)`)
 
+For `set_` prefixed methods with a single required argument:
+
+- Regular methods: suggests using `=` method syntax (e.g., `set_user(val)` → `user=(val)`)
+- API client methods: suggests `create_`, `put_`, or `update_` prefixes (e.g., `set_user(data)` → `create_user(data)`)
+
 ### Examples
 
-**Bad:**
+**Bad - `get_` prefix:**
 
 ```ruby
 def get_user(id)
@@ -59,7 +83,7 @@ def get_db_line_item(order_id, line_item_id)
 end
 ```
 
-**Good:**
+**Good - `get_` prefix:**
 
 ```ruby
 def user_for(id)
@@ -74,6 +98,32 @@ end
 # Or using find_ pattern
 def find_user(id)
   SpecializedUserClass.find(id)
+end
+```
+
+**Bad - `set_` prefix (single argument):**
+
+```ruby
+def set_custom_var(val)
+  @custom_var = val
+end
+```
+
+**Good - `set_` prefix (single argument):**
+
+```ruby
+def custom_var=(val)
+  @custom_var = val
+end
+```
+
+**Allowed - `set_` prefix (2+ arguments):**
+
+```ruby
+# Methods with 2+ required arguments are not flagged
+# since the `=` suffix is only idiomatic for single-argument setters
+def set_user(id, name)
+  @user = User.new(id: id, name: name)
 end
 ```
 
@@ -103,10 +153,25 @@ The cop automatically excludes:
    ```
 
 3. **API client methods** - Methods in API client files that call `get()` are excluded:
+
    ```ruby
    # In a file matching *client*.rb, *api_client*.rb, *controller*.rb, etc.
    def get_user(id)
      get("/users/#{id}")
+   end
+   ```
+
+4. **`set_` methods with 2+ required arguments** - Since the `=` suffix is only idiomatic for single-argument setters in Ruby:
+
+   ```ruby
+   # Not flagged - has 2+ required arguments
+   def set_user(id, name)
+     @user = User.new(id: id, name: name)
+   end
+
+   # Not flagged - has 2+ required keyword arguments
+   def set_user(id:, name:)
+     @user = User.new(id: id, name: name)
    end
    ```
 
@@ -136,11 +201,27 @@ Naming/MethodNameGetPrefix:
   Enabled: true
 ```
 
+## Cop documentation
+
+Each cop has a dedicated guide with rationale, examples, and configuration options:
+
+- [Naming/MethodNameGetPrefix](guides/naming-method-name-get-prefix.md)
+
+## Rails large-codebase scope
+
+This extension is targeted toward rules for large Rails codebases. See [docs/RAILS_MONOLITH_SCOPE.md](docs/RAILS_MONOLITH_SCOPE.md) for:
+
+- Rule scope and future departments (Naming, RailsArchitecture, RailsSafety, RailsPerformance)
+- Baseline vs strict profiles
+- Migration strategy: audit first, then enforce
+
 ## Development
 
 After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rspec` to run the tests.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
+
+To add a new cop, use `bundle exec rake 'new_cop[Department/CopName]'` and follow [docs/ADDING_COPS.md](docs/ADDING_COPS.md).
 
 ## Contributing
 
