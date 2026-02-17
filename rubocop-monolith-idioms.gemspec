@@ -25,15 +25,15 @@ Gem::Specification.new do |spec|
     files = if system('git rev-parse --git-dir > /dev/null 2>&1')
               `git ls-files -z`.split("\x0")
             else
-              Dir['lib/**/*', 'config/**/*', 'guides/**/*', '*.md', 'LICENSE*'].reject { |f| File.directory?(f) }
+              Dir['lib/**/*', 'config/**/*', 'guides/**/*', 'templates/**/*', '*.md', 'LICENSE*'].reject { |f| File.directory?(f) }
             end
     files.reject do |f|
       (File.expand_path(f) == __FILE__) ||
-        f.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile rubocop-core-integration/])
+        f.start_with?(*%w[test/ spec/ features/ .git .github appveyor Gemfile rubocop-core-integration/])
     end
   end
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.bindir        = 'bin'
+  spec.executables   = ['install-context']
   spec.require_paths = ['lib']
 
   spec.add_dependency 'lint_roller', '~> 1.1'

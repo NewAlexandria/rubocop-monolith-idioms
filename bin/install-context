@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+require 'optparse'
+
+TEMPLATE = File.expand_path('../../templates/agent-context.md', __FILE__)
+DEFAULT_TARGET = '.cursor/rubocop-monolith-idioms.md'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: install-context [options]"
+
+  opts.on('--path PATH', "Target path (default: #{DEFAULT_TARGET})") do |p|
+    options[:path] = p
+  end
+
+  opts.on('--force', 'Overwrite existing file') do
+    options[:force] = true
+  end
+
+  opts.on('-h', '--help', 'Show this help') do
+    puts opts
+    exit
+  end
+end.parse!
+
+target = options[:path] || DEFAULT_TARGET
+
+if File.exist?(target) && !options[:force]
+  warn "#{target} already exists. Use --force to overwrite."
+  exit 0
+end
+
+FileUtils.mkdir_p(File.dirname(target))
+FileUtils.cp(TEMPLATE, target)
+puts "Installed agent context to #{target}"

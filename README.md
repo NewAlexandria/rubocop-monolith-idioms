@@ -1,58 +1,58 @@
-# rubocop-monolith-idioms
+# RuboCop Monolith Idioms
 
-A RuboCop extension for idiomatic Ruby naming and Rails monolith patterns, including cops that flag `get_`/`set_` method prefixes and room for more large-codebase rules.
+Your monolith has opinions — put them in cops.
 
-## Installation
+A RuboCop extension for teams running large Rails codebases who want idiomatic naming, boundary enforcement, and room to encode their own patterns as lint rules. Ships with a `get_`/`set_` method-naming cop out of the box and a scaffold for adding more. **Fork this repo, add your domain cops, and let the linter teach the codebase.**
 
-Add this gem to your Gemfile:
+## Fork and add your patterns
+
+Two paths:
+
+1. **Use the gem as-is.** Install it, enable the built-in cops, move on.
+2. **Fork this repo** and add cops for your domain. Run `bundle exec rake 'new_cop[Department/CopName]'`, follow [docs/ADDING_COPS.md](docs/ADDING_COPS.md), and ship rules that encode your team's idioms.
+
+Building with AI agents? Install the [agent context doc](#install-agent-context) so your editor agent knows how to add new rules without asking.
+
+## Quick start
+
+Add the gem to your `Gemfile`:
 
 ```ruby
 gem 'rubocop-monolith-idioms', require: false
 ```
 
-And then execute:
+Then run:
 
 ```bash
 bundle install
 ```
 
-Or install it yourself as:
-
-```bash
-gem install rubocop-monolith-idioms
-```
-
-## Usage
-
-### Plugin loading (RuboCop 1.72+)
-
-Add this to your `.rubocop.yml`:
+Load via **plugin** (RuboCop 1.72+) or **require** (older versions):
 
 ```yaml
+# .rubocop.yml — pick one
 plugins:
-  - rubocop-monolith-idioms
-```
+  - rubocop-monolith-idioms   # RuboCop 1.72+
 
-### Legacy require loading
-
-For RuboCop versions before 1.72, use `require` instead:
-
-```yaml
 require:
-  - rubocop-monolith-idioms
+  - rubocop-monolith-idioms   # older RuboCop
 ```
 
-Or load via the command line:
+Run `rubocop` as usual — the cops load automatically.
+
+## Install agent context
+
+After `bundle install`, run:
 
 ```bash
-rubocop --require rubocop-monolith-idioms
-# or
-rubocop --plugin rubocop-monolith-idioms
+bundle exec install-context
 ```
 
-Now you can run `rubocop` and it will automatically load the cops.
+This copies an agent-context doc into `.cursor/rubocop-monolith-idioms.md` (override with `--path`). The file tells AI editor agents what this gem does and how to add new cops so they can contribute rules without manual guidance.
 
-## What it does
+See [bin/install-context](bin/install-context) for flags (`--force`, `--path`).
+
+## What's in the box
 
 This cop flags methods that:
 
@@ -223,9 +223,13 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 
 To add a new cop, use `bundle exec rake 'new_cop[Department/CopName]'` and follow [docs/ADDING_COPS.md](docs/ADDING_COPS.md).
 
-## Contributing
+## Contributing and sharing back
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/NewAlexandria/rubocop-monolith-idioms.
+Upstream welcomes new cops or config that other monoliths could use. If you added something internal-only, that's fine — consider open-sourcing a redacted or generalized version.
+
+PRs may receive automated Copilot code-review comments that nudge when a rule looks company-specific; those are nudges, not blockers.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full details, including how to enable Copilot code review on your fork.
 
 ## License
 
