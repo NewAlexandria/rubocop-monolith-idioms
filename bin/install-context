@@ -6,7 +6,7 @@ require 'optparse'
 
 GEM_ROOT = File.expand_path('../..', __FILE__)
 TEMPLATE = File.join(GEM_ROOT, 'templates', 'agent-context.md')
-DEFAULT_TARGET = '.cursor/rubocop-monolith-idioms.md'
+DEFAULT_TARGET = 'AGENTS.md'
 EXAMPLES_DIR = 'docs/rubocop-monolith-idioms-examples'
 EXAMPLES_SOURCE = File.join(GEM_ROOT, 'examples')
 

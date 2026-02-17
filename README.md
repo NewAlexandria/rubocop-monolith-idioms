@@ -50,7 +50,13 @@ After `bundle install`, run:
 bundle exec install-context
 ```
 
-This copies an agent-context doc into `.cursor/rubocop-monolith-idioms.md` (override with `--path`). The file tells AI editor agents what this gem does and how to add new cops so they can contribute rules without manual guidance.
+This creates an `AGENTS.md` file in your project root — a universal context doc that any AI agent or IDE can read. It tells agents what this gem does and how to add new cops so they can contribute rules without manual guidance.
+
+If you prefer a different location (e.g., `.cursor/rubocop-monolith-idioms.md` for a Cursor-only setup), use `--path`:
+
+```bash
+bundle exec install-context --path .cursor/rubocop-monolith-idioms.md
+```
 
 By default, Naming/MethodNameGetPrefix examples (good, bad, and exception) are also copied into `docs/rubocop-monolith-idioms-examples/`. Use `--without-examples` to skip. Create that directory and add one markdown file per cop with Context and embedded code blocks so agents use this repo's examples when applying the rules.
 

@@ -14,7 +14,7 @@ After checking out the repo, run `bundle install` to install dependencies and `b
 
 ## Agent context
 
-If you use an AI editor agent, run `bundle exec install-context` to install a context doc that tells the agent how the gem works and how to add cops.
+If you use an AI editor agent, run `bundle exec install-context` to install an `AGENTS.md` context doc that tells the agent how the gem works and how to add cops.
 
 ## Copilot code review
 
