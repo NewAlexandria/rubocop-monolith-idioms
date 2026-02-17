@@ -1,0 +1,7 @@
+# Add this to config/default.yml under the Naming section:
+
+Naming/MethodNameGetPrefix:
+  Description: 'Avoid using `get_` prefix for methods with arguments.'
+  Enabled: true
+  VersionAdded: '1.64'
+
