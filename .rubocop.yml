@@ -4,6 +4,8 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
+  Exclude:
+    - 'export/**/*'
 
 Layout/LineLength:
   Max: 120
@@ -11,4 +13,22 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
+    - 'lib/tasks/*.rake'
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/ContextWording:
+  AllowedPatterns:
+    - '^edge cases$'
+    - '^set_ prefix edge cases$'
+
+Naming/FileName:
+  Exclude:
+    - 'lib/rubocop-method-name-get-prefix.rb'
+
+# Capybara cops can error on non-Capybara spec files
+Capybara/RSpec/PredicateMatcher:
+  Exclude:
+    - 'spec/**/*'
 

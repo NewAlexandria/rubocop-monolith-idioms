@@ -1,0 +1,13 @@
+# Strict profile: additional enforcement for teams ready to adopt more rules.
+# Enable after baseline has been adopted and violations addressed.
+#
+# Usage in .rubocop.yml:
+#   inherit_from:
+#     - rubocop-method-name-get-prefix:config/profiles/strict.yml
+
+inherit_from:
+  - ../default.yml
+
+# Strict profile: same as baseline for now.
+# Future cops (e.g., RailsArchitecture/*, RailsSafety/*) can be enabled here
+# as they are added to the extension.

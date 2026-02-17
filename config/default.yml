@@ -1,0 +1,5 @@
+# Naming cops: idiomatic Ruby method naming conventions
+Naming/MethodNameGetPrefix:
+  Description: 'Avoid using `get_` or `set_` prefix for methods with arguments.'
+  Enabled: true
+  VersionAdded: '0.1.0'

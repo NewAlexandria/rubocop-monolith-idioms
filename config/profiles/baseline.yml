@@ -1,0 +1,15 @@
+# Baseline profile: conservative defaults for large Rails codebases.
+# Use this when first adopting the extension.
+#
+# Usage in .rubocop.yml:
+#   inherit_from:
+#     - .rubocop-baseline.yml
+#   # or with gem path:
+#   inherit_from:
+#     - rubocop-method-name-get-prefix:config/profiles/baseline.yml
+
+inherit_from:
+  - ../default.yml
+
+# Baseline enables only the most widely applicable cops.
+# Add project-specific overrides below as needed.
