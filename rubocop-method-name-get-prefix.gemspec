@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'RuboCop cop to prevent non-idiomatic get_ prefix in method names'
   spec.description   = 'A RuboCop extension that flags methods with get_ prefix that take arguments, ' \
-                        'suggesting more idiomatic Ruby naming conventions like *_for or find_* patterns.'
+                       'suggesting more idiomatic Ruby naming conventions like *_for or find_* patterns.'
   spec.homepage      = 'https://github.com/NewAlexandria/rubocop-method-name-get-prefix'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.7.0'
@@ -18,13 +18,14 @@ Gem::Specification.new do |spec|
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
   spec.metadata['changelog_uri'] = "#{spec.homepage}/blob/main/CHANGELOG.md"
+  spec.metadata['documentation_uri'] = "#{spec.homepage}/tree/main/guides"
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.files = Dir.chdir(__dir__) do
     files = if system('git rev-parse --git-dir > /dev/null 2>&1')
               `git ls-files -z`.split("\x0")
             else
-              Dir['**/*'].reject { |f| File.directory?(f) }
+              Dir['lib/**/*', 'config/**/*', 'guides/**/*', '*.md', 'LICENSE*'].reject { |f| File.directory?(f) }
             end
     files.reject do |f|
       (File.expand_path(f) == __FILE__) ||
@@ -35,5 +36,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'lint_roller', '~> 1.1'
   spec.add_dependency 'rubocop', '>= 1.0'
+
+  spec.metadata['default_lint_roller_plugin'] = 'RuboCop::MethodNameGetPrefix::Plugin'
 end
